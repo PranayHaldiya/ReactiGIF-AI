@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String        @id @default(cuid())
+  clerkUserId   String        @unique
+  email         String?       @unique
+  firstName     String?
+  lastName      String?
+  imageUrl      String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  generations   Generation[]
+
+  @@index([clerkUserId])
+  @@map("users")
+}
+
+model Generation {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  inputText       String    @db.Text
+  keywords        String[]
+  topic           String?
+  reasoning       String    @db.Text
+  gifUrl          String    @db.Text
+  gifTitle        String
+
+  // Multi-perspective generation fields
+  perspective        String?   // "emotional", "literal", or "sarcastic"
+  generationGroupId  String?   // Links GIFs from same request
+
+  createdAt       DateTime  @default(now())
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([createdAt(sort: Desc)])
+  @@index([generationGroupId])
+  @@map("generations")
+}
