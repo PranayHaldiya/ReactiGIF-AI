@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Framework**: Next.js 16 (App Router) with Turbopack
 - **UI**: React 19, Tailwind CSS 4, Radix UI components
-- **AI**: Vercel AI SDK with Groq (Kimi K2 Instruct for keyword extraction and GIF selection)
+- **AI**: Vercel AI SDK with Google Gemini (Gemini 2.5 Flash for keyword extraction and GIF selection)
 - **Authentication**: Clerk
 - **Database**: Neon PostgreSQL with Prisma 7 ORM
 - **Rate Limiting**: Upstash Redis (sliding window algorithm)
@@ -32,7 +32,7 @@ Required in `.env.local`:
 
 ```
 # AI Services
-GROQ_API_KEY=                          # Groq API key for AI generation (get from https://console.groq.com)
+GOOGLE_GENERATIVE_AI_API_KEY=          # Get from https://aistudio.google.com/apikey
 GIPHY_API_KEY=                         # Giphy API key for GIF search
 
 # Clerk Authentication
@@ -133,8 +133,8 @@ Uses Upstash Redis with sliding window algorithm:
 
 ### AI Model Selection
 
-- Keyword extraction: `kimi-k2-instruct-0905` via Groq (supports json_schema structured outputs, state-of-the-art reasoning, 32B active params/1T total)
-- GIF selection: `kimi-k2-instruct-0905` via Groq (best-in-class understanding with MoE architecture - beats GPT-5 and Claude 4.5 on key benchmarks)
+- Keyword extraction: `gemini-2.5-flash-latest` via Google AI (1M token context, cost-effective, excellent for creative text understanding)
+- GIF selection: `gemini-2.5-flash-latest` via Google AI (fast, accurate selection with strong reasoning capabilities)
 
 ### Prisma 7 Setup
 

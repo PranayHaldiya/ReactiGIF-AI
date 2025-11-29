@@ -202,7 +202,7 @@ export function GifGenerator() {
           )}
 
           {/* 3-column grid for GIFs (responsive: stacks on mobile) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {result.results.map((gif) => (
               <div key={gif.perspective} className="space-y-3">
                 {/* Perspective label */}
@@ -247,24 +247,24 @@ export function GifGenerator() {
                 </div>
 
                 {/* Action buttons */}
-                <div className="flex gap-2">
+                <div className="flex items-center justify-center gap-2">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => shareGif(gif.url, gif.title, gif.perspective)}
-                    className="flex-1"
+                    className="gap-1.5"
                   >
-                    <Share2 className="mr-2 h-4 w-4" />
-                    Share
+                    <Share2 className="h-4 w-4 shrink-0" />
+                    <span>Share</span>
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => downloadGif(gif.url, gif.title, gif.perspective)}
-                    className="flex-1"
+                    className="gap-1.5"
                   >
-                    <Download className="mr-2 h-4 w-4" />
-                    Download
+                    <Download className="h-4 w-4 shrink-0" />
+                    <span>Download</span>
                   </Button>
                 </div>
 

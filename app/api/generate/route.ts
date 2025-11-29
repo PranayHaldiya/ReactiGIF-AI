@@ -1,7 +1,7 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextRequest } from "next/server";
 import { generateObject } from "ai";
-import { groq } from "@ai-sdk/groq";
+import { google } from "@ai-sdk/google";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ratelimit } from "@/lib/rate-limit";
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
 
     // Step 4: Use AI to generate 3 search strategies with different perspectives
     const { object: strategiesResult, usage } = await generateObject({
-      model: groq("moonshotai/kimi-k2-instruct"),
+      model: google("gemini-2.5-flash"),
       schema: strategiesSchema,
       prompt: `You are a reaction GIF expert. Analyze the following text and create THREE different search strategies for finding the perfect reaction GIF, each with a distinct perspective.
 
@@ -185,7 +185,7 @@ Make each strategy genuinely distinct - they should find different types of GIFs
 
       try {
         const { object: selection } = await generateObject({
-          model: groq("moonshotai/kimi-k2-instruct-0905"),
+          model: google("gemini-2.5-flash"),
           schema: selectionSchema,
           prompt: `You are selecting the perfect ${result.strategy.perspective.toUpperCase()} reaction GIF for someone's message.
 
